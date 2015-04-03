@@ -17,7 +17,6 @@ import java.io.InputStream;
 
 public class MenuPrincipal extends JFrame {
 
-//    JPanel panel
     JButton buttonLoadFiles;
     JButton buttonStart;
     JTextField textFieldLoadFiles;

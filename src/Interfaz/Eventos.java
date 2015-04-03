@@ -14,16 +14,14 @@ package Interfaz;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
 
 public class Eventos {
     private MenuPrincipal menuPrincipal;
+    private MovimientoRobot movimientoRobot;
 
-    public Eventos(final MenuPrincipal menuPrincipal){
+    public Eventos(final MenuPrincipal menuPrincipal, final MovimientoRobot movimientoRobot){
         this.menuPrincipal = menuPrincipal;
+        this.movimientoRobot = movimientoRobot;
 
         menuPrincipal.buttonLoadFiles.addActionListener(
                 new ActionListener() {
@@ -31,7 +29,26 @@ public class Eventos {
                     public void actionPerformed(ActionEvent e) {
                         JFileChooser jFileChooser = new JFileChooser();
                         jFileChooser.showOpenDialog(menuPrincipal);
-                        menuPrincipal.textFieldLoadFiles.setText(String.valueOf(jFileChooser.getSelectedFile()));
+                        String url = String.valueOf(jFileChooser.getSelectedFile());
+                        if (url!= "null"){
+                            movimientoRobot.getMapa().uploadMap(jFileChooser.getSelectedFile());
+                            menuPrincipal.textFieldLoadFiles.setText(url);
+                        }
+                    }
+                }
+        );
+        menuPrincipal.buttonStart.addActionListener(
+                new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        //Condicional para verificar si ya se cargo el mapa
+                        if (movimientoRobot.getMapa().isLoadMap()){
+                            movimientoRobot.setVisible(true);
+                            menuPrincipal.setVisible(false);
+
+                        }else{
+                            JOptionPane.showMessageDialog(null, "No se a cargado el mapa correctamente");
+                        }
                     }
                 }
         );

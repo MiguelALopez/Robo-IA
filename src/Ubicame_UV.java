@@ -12,11 +12,13 @@
 
 import Interfaz.Eventos;
 import Interfaz.MenuPrincipal;
+import Interfaz.MovimientoRobot;
 
 public class Ubicame_UV {
     public static void main(String[] args) {
         MenuPrincipal menuPrincipal = new MenuPrincipal();
-        Eventos eventos = new Eventos(menuPrincipal);
+        MovimientoRobot movimientoRobot = new MovimientoRobot();
+        Eventos eventos = new Eventos(menuPrincipal, movimientoRobot);
         menuPrincipal.setVisible(true);
     }
 }
