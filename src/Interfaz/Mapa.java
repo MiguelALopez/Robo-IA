@@ -38,9 +38,13 @@ public class Mapa extends JPanel {
     //Verifica si se a cargado el mapa
     private boolean loadMap;
 
+    //Variable encargada de escalar el juego para que se tenga el tamaño correcto
+    int factorEscala;
+
     public Mapa(){
         loadImages();
         loadMap = false;
+        factorEscala = 0;
     }
 
     //Metodo encargado de cargar las imagenes de la carpeta de imagenes
@@ -115,11 +119,9 @@ public class Mapa extends JPanel {
     }
 
     public void paint(Graphics g){
+        System.out.println("x= " + getWidth() + " y= " + getHeight());
         if (loadMap){
-            System.out.println("x= " + getWidth() + " y= " + getHeight());
-            int n = positionsMap.length;
-            Image imageBuffer = createImage(n*52, n*52);
-//            Image imageBuffer = createImage(getWidth(), getHeight());
+            Image imageBuffer = createImage(getWidth(), getHeight());
             Graphics graphicsBuffer = imageBuffer.getGraphics();
             drawGrids(graphicsBuffer);
             drawIcons(graphicsBuffer);
@@ -131,23 +133,27 @@ public class Mapa extends JPanel {
 
     public void drawGrids(Graphics g){
         int n = positionsMap.length;
-        for (int x = 0; x <= n*52; x+=52) {
-            g.drawRect(x, 0, 2, n*52);
+        double sizeGrid = (getHeight() * 0.037)/n;
+        double sizeSpace = ((getHeight() * 0.9259) + (2* sizeGrid))/n;
+        for (int x = 0; x <= n*sizeSpace; x+=sizeSpace) {
+            g.fillRect(x, 0, (int) (2 * sizeGrid), (int) (n * sizeSpace));
         }
-        for (int y = 0; y <= n*52; y+=52) {
-            g.drawRect(0, y, n*52, 2);
+        for (int y = 0; y <= n*sizeSpace; y+=sizeSpace) {
+            g.fillRect(0, y, (int) (n * sizeSpace) + 1, (int) (2 * sizeGrid));
         }
     }
     public void drawIcons(Graphics g){
         int n = positionsMap.length;
-        int y = 2;
-        for (int i = 0; i < n; i++, y+=52) {
-            int x = 2;
-            for (int j = 0; j < n; j++, x+=52) {
-                g.drawImage(getIcons(positionsMap[i][j]), x, y, 50, 50, null);
+        double sizeGrid = (getHeight() * 0.037)/n;
+        double sizeSpace = ((getHeight() * 0.9259) + (2* sizeGrid))/n;
+        double sizeSquare = (getHeight() * 0.7407) / n;
+        double y = sizeGrid + ((getHeight()* 0.0923)/n);
+        for (int i = 0; i < n; i++, y+=sizeSpace) {
+            double x = sizeGrid + ((getHeight()* 0.0923)/n);
+            for (int j = 0; j < n; j++, x+=sizeSpace) {
+                g.drawImage(getIcons(positionsMap[i][j]), (int)x,(int)y,(int)sizeSquare,(int)sizeSquare, null);
             }
         }
-
     }
 
     public Image getIcons(int numberIcon){
