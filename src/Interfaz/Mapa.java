@@ -133,8 +133,12 @@ public class Mapa extends JPanel {
 
     public void drawGrids(Graphics g){
         int n = positionsMap.length;
-        double sizeGrid = (getHeight() * 0.037)/n;
-        double sizeSpace = ((getHeight() * 0.9259) + (2* sizeGrid))/n;
+        int factorEscala = getHeight();//Factor de escala usado para verificar cual eje es menor y usarlo para factor de escala
+        if (getWidth() < getHeight()){//Se Comprueba que eje es menor
+            factorEscala = getWidth();
+        }
+        double sizeGrid = (factorEscala * 0.037)/n;
+        double sizeSpace = ((factorEscala * 0.9259) + (2* sizeGrid))/n;
         for (int x = 0; x <= n*sizeSpace; x+=sizeSpace) {
             g.fillRect(x, 0, (int) (2 * sizeGrid), (int) (n * sizeSpace));
         }
@@ -144,12 +148,16 @@ public class Mapa extends JPanel {
     }
     public void drawIcons(Graphics g){
         int n = positionsMap.length;
-        double sizeGrid = (getHeight() * 0.037)/n;
-        double sizeSpace = ((getHeight() * 0.9259) + (2* sizeGrid))/n;
-        double sizeSquare = (getHeight() * 0.7407) / n;
-        double y = sizeGrid + ((getHeight()* 0.0923)/n);
+        int factorEscala = getHeight();
+        if (getWidth() < getHeight()){
+            factorEscala = getWidth();
+        }
+        double sizeGrid = (factorEscala * 0.037)/n;
+        double sizeSpace = ((factorEscala * 0.9259) + (2* sizeGrid))/n;
+        double sizeSquare = (factorEscala * 0.7407) / n;
+        double y = sizeGrid + ((factorEscala * 0.0923)/n);
         for (int i = 0; i < n; i++, y+=sizeSpace) {
-            double x = sizeGrid + ((getHeight()* 0.0923)/n);
+            double x = sizeGrid + ((factorEscala * 0.0923)/n);
             for (int j = 0; j < n; j++, x+=sizeSpace) {
                 g.drawImage(getIcons(positionsMap[i][j]), (int)x,(int)y,(int)sizeSquare,(int)sizeSquare, null);
             }
