@@ -117,7 +117,8 @@ public class Mapa extends JPanel {
             }
         }
     }
-
+    //Metodo sobre escrito encargado de refrescar la pantalla con los graficos
+    @Override
     public void paint(Graphics g){
         System.out.println("x= " + getWidth() + " y= " + getHeight());
         if (loadMap){
@@ -131,6 +132,7 @@ public class Mapa extends JPanel {
         }
     }
 
+    //Metodo encargado de dibujar la grilla de el tablero de busqueda
     public void drawGrids(Graphics g){
         int n = positionsMap.length;
         int factorEscala = getHeight();//Factor de escala usado para verificar cual eje es menor y usarlo para factor de escala
@@ -146,6 +148,8 @@ public class Mapa extends JPanel {
             g.fillRect(0, y, (int) (n * sizeSpace) + 1, (int) (2 * sizeGrid));
         }
     }
+
+    //Metodo encargado de dibujar los elementos del tablero
     public void drawIcons(Graphics g){
         int n = positionsMap.length;
         int factorEscala = getHeight();
@@ -164,6 +168,7 @@ public class Mapa extends JPanel {
         }
     }
 
+    //Metodo encargado de retornar el icono de acuerdo a su numero
     public Image getIcons(int numberIcon){
         Image icon;
         switch (numberIcon){
@@ -200,7 +205,7 @@ public class Mapa extends JPanel {
         return icon;
     }
 
-
+    //Metodo encargado de retornar loadMap el cual esta en true si el mapa a sido cargado exitosamente
     public boolean isLoadMap() {
         return loadMap;
     }
