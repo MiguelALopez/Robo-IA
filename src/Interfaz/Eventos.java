@@ -59,8 +59,6 @@ public class Eventos {
                                 busquedaAmplitud.run();
                                 movimientoRobot.loadPath(busquedaAmplitud.path);
                             }
-                            System.out.println(menuPrincipal.buttonGroupBusquedas.getSelection());
-
                         }else{
                             JOptionPane.showMessageDialog(null, "No se a cargado el mapa correctamente");
                         }
@@ -72,6 +70,32 @@ public class Eventos {
                     @Override
                     public void actionPerformed(ActionEvent e) {
                         movimientoRobot.next();
+                    }
+                }
+        );
+
+        movimientoRobot.buttonPrevious.addActionListener(
+                new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        movimientoRobot.previous();
+                    }
+                }
+        );
+        movimientoRobot.buttonReboot.addActionListener(
+                new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        movimientoRobot.reboot();
+                    }
+                }
+        );
+        movimientoRobot.buttonReturn.addActionListener(
+                new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        movimientoRobot.setVisible(false);
+                        menuPrincipal.setVisible(true);
                     }
                 }
         );

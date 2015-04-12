@@ -66,7 +66,25 @@ public class MovimientoRobot extends JFrame{
         if (movimiento< path.length){
             mapa.setRobot(path[movimiento]);
             mapa.repaint();
+        }else {
+            movimiento--;
         }
+    }
+
+    public void previous(){
+        movimiento--;
+        if (movimiento >= 0){
+            mapa.setRobot(path[movimiento]);
+            mapa.repaint();
+        }else {
+            movimiento++;
+        }
+    }
+
+    public void reboot(){
+        movimiento = 0;
+        mapa.setRobot(path[movimiento]);
+        mapa.repaint();
     }
 
     public Mapa getMapa() {

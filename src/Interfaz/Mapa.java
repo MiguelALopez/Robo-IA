@@ -229,6 +229,10 @@ public class Mapa extends JPanel {
         return loadMap;
     }
 
+    public void setLoadMap(boolean loadMap) {
+        this.loadMap = loadMap;
+    }
+
     public int[][] getPositionsMap() {
         return positionsMap;
     }
