@@ -3,14 +3,12 @@ Ubicame UV
 
 Primer Proyecto de inteligencia artificial
 
-Integrantes
------------
+### Integrantes
 * Miguel Angel Lopez
 * Mario Alejandro Payan
 * Kellys Santa
 
-Comando de Compilacion
-----------------------
+### Comando de Compilacion
 Dentro de la carpeta src ejecuta los siguientes comando en consola
  > **javac Ubicame_UV**
  
