@@ -13,7 +13,7 @@ package Busqueda;
 
 public class BusquedaAmplitud {
     private int[][] matrix;
-    private Queue queue = new Queue();
+    private Queue queue;
     private int iniX;
     private int iniY;
     private Aux aux;
@@ -30,25 +30,25 @@ public class BusquedaAmplitud {
     public int path[][];
 
     public BusquedaAmplitud(int[][] matrix, int iniX, int iniY){
-        this.matrix=matrix;
-        this.iniX=iniX;
-        this.iniY=iniY;
+        //Inicializacion de variables
+        this.matrix = matrix;
+        this.iniX = iniX;
+        this.iniY = iniY;
         aux = new Aux(matrix.length);
-        int[][] iniPath = new int[0][2];
+        queue = new Queue();
 
-        queue.encolar(new Nodo(iniX, iniY, iniPath, 0, 6));
+        queue.encolar(new Nodo(iniX, iniY, new int[0][2], 0, 6));
     }
 
     public void run(){
-        queue.frente().print();
         while(!step()){
-            queue.frente().print();
-            path = queue.frente().getPath();
+            path = aux.toAdd(queue.frente().getPath(), queue.frente().getX(),queue.frente().getY());
         }
+
     }
 
     public boolean step(){
-        Nodo nodoAux = (Nodo) queue.frente();
+        Nodo nodoAux = queue.frente();
         queue.desencolar();
         return busqueda(nodoAux);
     }
