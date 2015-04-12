@@ -35,16 +35,25 @@ public class Mapa extends JPanel {
     //Matriz que contiene los valores del mapa
     private int positionsMap[][];
 
+    private int robot[];
+
     //Verifica si se a cargado el mapa
     private boolean loadMap;
 
     //Variable encargada de escalar el juego para que se tenga el tamaño correcto
-    int factorEscala;
+    double factEscGrid;
+    double factEscSquare;
+    double factEscImage;
+    double factEscSpace;
+    double sizeGrid;
+    double sizeSquare;
+    double sizeImage;
+    double sizeSpace;
 
     public Mapa(){
         loadImages();
         loadMap = false;
-        factorEscala = 0;
+        robot = new int[2];
     }
 
     //Metodo encargado de cargar las imagenes de la carpeta de imagenes
@@ -120,52 +129,62 @@ public class Mapa extends JPanel {
     //Metodo sobre escrito encargado de refrescar la pantalla con los graficos
     @Override
     public void paint(Graphics g){
-        System.out.println("x= " + getWidth() + " y= " + getHeight());
+//        System.out.println("x= " + getWidth() + " y= " + getHeight());
         if (loadMap){
             Image imageBuffer = createImage(getWidth(), getHeight());
             Graphics graphicsBuffer = imageBuffer.getGraphics();
+            escalas(0.037,0.9259,0.7407, 0.0925);
+//            graphicsBuffer.setColor(Color.CYAN);
+//            graphicsBuffer.fillRect(0,0,getWidth(),getHeight());
             drawGrids(graphicsBuffer);
             drawIcons(graphicsBuffer);
+//            drawRobot(graphicsBuffer);
 
 
             g.drawImage(imageBuffer,0,0,Color.cyan,null);
         }
     }
 
+    public void escalas(double factGrid, double factSquare, double factImage, double factSpace){
+        int n = positionsMap.length;
+        int tamanoRelativo = getHeight();//Tamano relativo usado para verificar cual eje es menor y usarlo para escalar con respecto a ese
+        if (getWidth() < getHeight()){//Se Comprueba que eje es menor
+            tamanoRelativo = getWidth();
+        }
+        factEscGrid = tamanoRelativo * factGrid;
+        factEscSquare = tamanoRelativo * factSquare;
+        factEscImage = tamanoRelativo * factImage;
+        factEscSpace = tamanoRelativo * factSpace;
+        sizeGrid = factEscGrid/n;
+        sizeSquare = (factEscSquare + (2* sizeGrid))/n;
+        sizeImage = factEscImage / n;
+        sizeSpace = factEscSpace / n;
+    }
+
     //Metodo encargado de dibujar la grilla de el tablero de busqueda
     public void drawGrids(Graphics g){
         int n = positionsMap.length;
-        int factorEscala = getHeight();//Factor de escala usado para verificar cual eje es menor y usarlo para factor de escala
-        if (getWidth() < getHeight()){//Se Comprueba que eje es menor
-            factorEscala = getWidth();
+        for (int x = 0; x <= n* sizeSquare; x+= sizeSquare) {
+            g.fillRect(x, 0, (int) (2 * sizeGrid), (int) (n * sizeSquare));
         }
-        double sizeGrid = (factorEscala * 0.037)/n;
-        double sizeSpace = ((factorEscala * 0.9259) + (2* sizeGrid))/n;
-        for (int x = 0; x <= n*sizeSpace; x+=sizeSpace) {
-            g.fillRect(x, 0, (int) (2 * sizeGrid), (int) (n * sizeSpace));
-        }
-        for (int y = 0; y <= n*sizeSpace; y+=sizeSpace) {
-            g.fillRect(0, y, (int) (n * sizeSpace) + 1, (int) (2 * sizeGrid));
+        for (int y = 0; y <= n* sizeSquare; y+= sizeSquare) {
+            g.fillRect(0, y, (int) (n * sizeSquare) + 1, (int) (2 * sizeGrid));
         }
     }
 
     //Metodo encargado de dibujar los elementos del tablero
     public void drawIcons(Graphics g){
         int n = positionsMap.length;
-        int factorEscala = getHeight();
-        if (getWidth() < getHeight()){
-            factorEscala = getWidth();
-        }
-        double sizeGrid = (factorEscala * 0.037)/n;
-        double sizeSpace = ((factorEscala * 0.9259) + (2* sizeGrid))/n;
-        double sizeSquare = (factorEscala * 0.7407) / n;
-        double y = sizeGrid + ((factorEscala * 0.0923)/n);
-        for (int i = 0; i < n; i++, y+=sizeSpace) {
-            double x = sizeGrid + ((factorEscala * 0.0923)/n);
-            for (int j = 0; j < n; j++, x+=sizeSpace) {
-                g.drawImage(getIcons(positionsMap[i][j]), (int)x,(int)y,(int)sizeSquare,(int)sizeSquare, null);
+        double y = sizeGrid + (sizeSpace);
+        for (int i = 0; i < n; i++, y+= sizeSquare) {
+            double x = sizeGrid + (sizeSpace);
+            for (int j = 0; j < n; j++, x+= sizeSquare) {
+                g.drawImage(getIcons(positionsMap[i][j]), (int)x,(int)y,(int) sizeImage,(int) sizeImage, null);
             }
         }
+        int posYRobot =(int)( sizeGrid + sizeSpace +(sizeSquare *robot[0]));
+        int posXRobot =(int)( sizeGrid + sizeSpace +(sizeSquare *robot[1]));
+        g.drawImage(imgRobo1, posXRobot,posYRobot,(int) sizeImage,(int) sizeImage, null);
     }
 
     //Metodo encargado de retornar el icono de acuerdo a su numero
@@ -208,5 +227,13 @@ public class Mapa extends JPanel {
     //Metodo encargado de retornar loadMap el cual esta en true si el mapa a sido cargado exitosamente
     public boolean isLoadMap() {
         return loadMap;
+    }
+
+    public int[][] getPositionsMap() {
+        return positionsMap;
+    }
+
+    public void setRobot(int[] robot) {
+        this.robot = robot;
     }
 }

@@ -11,6 +11,9 @@
  */
 package Interfaz;
 
+import Busqueda.Aux;
+import Busqueda.BusquedaAmplitud;
+
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -18,6 +21,7 @@ import java.awt.event.ActionListener;
 public class Eventos {
     private MenuPrincipal menuPrincipal;
     private MovimientoRobot movimientoRobot;
+//    private BusquedaAmplitud busquedaAmplitud;
 
     public Eventos(final MenuPrincipal menuPrincipal, final MovimientoRobot movimientoRobot){
         this.menuPrincipal = menuPrincipal;
@@ -30,7 +34,7 @@ public class Eventos {
                         JFileChooser jFileChooser = new JFileChooser();
                         jFileChooser.showOpenDialog(menuPrincipal);
                         String url = String.valueOf(jFileChooser.getSelectedFile());
-                        if (url!= "null"){
+                        if (!url.equals("null")){
                             movimientoRobot.getMapa().uploadMap(jFileChooser.getSelectedFile());
                             menuPrincipal.textFieldLoadFiles.setText(url);
                         }
@@ -45,10 +49,29 @@ public class Eventos {
                         if (movimientoRobot.getMapa().isLoadMap()){
                             movimientoRobot.setVisible(true);
                             menuPrincipal.setVisible(false);
+                            if (menuPrincipal.radioButtonBusqInformada.isSelected()){
+                                int potitionInitial[] = new Aux(0).findPosStart(movimientoRobot.getMapa().getPositionsMap());
+                                BusquedaAmplitud busquedaAmplitud = new BusquedaAmplitud(
+                                        movimientoRobot.getMapa().getPositionsMap(),
+                                        potitionInitial[0],
+                                        potitionInitial[1]
+                                );
+                                busquedaAmplitud.run();
+                                movimientoRobot.loadPath(busquedaAmplitud.path);
+                            }
+                            System.out.println(menuPrincipal.buttonGroupBusquedas.getSelection());
 
                         }else{
                             JOptionPane.showMessageDialog(null, "No se a cargado el mapa correctamente");
                         }
+                    }
+                }
+        );
+        movimientoRobot.buttonNext.addActionListener(
+                new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        movimientoRobot.next();
                     }
                 }
         );

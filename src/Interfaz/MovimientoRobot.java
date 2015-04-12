@@ -17,23 +17,56 @@ import java.awt.*;
 public class MovimientoRobot extends JFrame{
 
     private Mapa mapa;
+    int path[][];
+    int movimiento;
+
+    JButton buttonNext;
+    JButton buttonPrevious;
+    JButton buttonReboot;
+    JButton buttonReturn;
 
     public MovimientoRobot(){
         super("Ubicame UV");
-        setLayout(new GridLayout(1, 2, 20, 20));
+        setLayout(new BorderLayout());
 
+        //Inicializo las variables
         mapa = new Mapa();
-        add(mapa);
+        buttonNext = new JButton("Siguiente");
+        buttonPrevious = new JButton("Anterior");
+        buttonReboot = new JButton("Reiniciar");
+        buttonReturn = new JButton("Regresar");
+        movimiento = 0;
 
-        JPanel panelArbol = new JPanel();
-        panelArbol.add(new JLabel("hola mundo"));
-        panelArbol.setOpaque(false);
+        JPanel panelPasoApaso = new JPanel();
+        panelPasoApaso.setLayout(new GridLayout(1, 4, 5, 5));
+        panelPasoApaso.add(buttonPrevious);
+        panelPasoApaso.add(buttonNext);
+        panelPasoApaso.add(buttonReboot);
+        panelPasoApaso.add(buttonReturn);
 
-        add(panelArbol);
+        add(new JPanel(), BorderLayout.WEST);
+        add(new JPanel(), BorderLayout.EAST);
+        add(mapa, BorderLayout.CENTER);
+        add(panelPasoApaso, BorderLayout.SOUTH);
+
+
 
         setVisible(false);
-        setSize(1000, 500);
+        setSize(500, 550);
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+    }
+
+    public void loadPath(int path[][]){
+        this.path = path;
+        System.out.println("camino cargado");
+    }
+
+    public void next(){
+        movimiento++;
+        if (movimiento< path.length){
+            mapa.setRobot(path[movimiento]);
+            mapa.repaint();
+        }
     }
 
     public Mapa getMapa() {

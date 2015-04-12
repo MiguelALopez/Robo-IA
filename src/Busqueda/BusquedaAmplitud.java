@@ -27,7 +27,9 @@ public class BusquedaAmplitud {
     private int[] RECHARGE = {6,5};
     private int GOAL = 7;
 
-    BusquedaAmplitud(int[][] matrix, int iniX, int iniY){
+    public int path[][];
+
+    public BusquedaAmplitud(int[][] matrix, int iniX, int iniY){
         this.matrix=matrix;
         this.iniX=iniX;
         this.iniY=iniY;
@@ -37,20 +39,21 @@ public class BusquedaAmplitud {
         queue.encolar(new Nodo(iniX, iniY, iniPath, 0, 6));
     }
 
-    void run(){
+    public void run(){
         queue.frente().print();
         while(!step()){
             queue.frente().print();
+            path = queue.frente().getPath();
         }
     }
 
-    boolean step(){
+    public boolean step(){
         Nodo nodoAux = (Nodo) queue.frente();
         queue.desencolar();
         return busqueda(nodoAux);
     }
 
-    boolean busqueda(Nodo nodo){
+    public boolean busqueda(Nodo nodo){
         int x = nodo.getX();
         int y = nodo.getY();
         int cost = nodo.getCost();
@@ -71,7 +74,7 @@ public class BusquedaAmplitud {
         return false;
     }
 
-    int calcCost(int costAct, int number){
+    public int calcCost(int costAct, int number){
         if(number==BLANK[0]){return costAct+BLANK[1];}
         else if(number==FLOOR_SLIPPERY[0]){return costAct+FLOOR_SLIPPERY[1];}
         else if(number==CROWD[0]){return costAct+CROWD[1];}
@@ -80,7 +83,7 @@ public class BusquedaAmplitud {
         else{return costAct+BLANK[1];}
     }
 
-    int calcCharge(int chargeAct, int number){
+    public int calcCharge(int chargeAct, int number){
         if(number==RECHARGE[0]){return 6;}
         else{return chargeAct-1;}
     }

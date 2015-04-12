@@ -48,4 +48,17 @@ public class Aux {
         }
         System.out.println("--------------------------");
     }
+    public int[] findPosStart(int matrix[][]){
+        int posStart[] = new int[2];
+        for(int j=0;j<matrix.length;j++){
+            for(int k=0;k<matrix.length;k++){
+                if(matrix[j][k]==0){
+                    posStart[0]=j;
+                    posStart[1]=k;
+                    j=k=matrix.length;
+                }
+            }
+        }
+        return posStart;
+    }
 }
