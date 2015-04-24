@@ -13,11 +13,13 @@ package Interfaz;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.ArrayList;
 
 public class MovimientoRobot extends JFrame{
 
     private Mapa mapa;
-    int path[][];
+    ArrayList<int[]> path;
+//    int path[][];
     int movimiento;
 
     JButton buttonNext;
@@ -57,17 +59,17 @@ public class MovimientoRobot extends JFrame{
     }
 
     //Metodo encargado de inicializar el camino por el cual el robot se ira
-    public void loadPath(int path[][]){
+    public void loadPath(ArrayList<int[]> path){
         this.path = path;
-        mapa.setRobot(path[0]);
+        mapa.setRobot(path.get(0));
         mapa.repaint();
         System.out.println("camino cargado");
     }
 
     public void next(){
         movimiento++;
-        if (movimiento< path.length){
-            mapa.setRobot(path[movimiento]);
+        if (movimiento< path.size()){
+            mapa.setRobot(path.get(movimiento));
             mapa.repaint();
         }else {
             movimiento--;
@@ -77,7 +79,7 @@ public class MovimientoRobot extends JFrame{
     public void previous(){
         movimiento--;
         if (movimiento >= 0){
-            mapa.setRobot(path[movimiento]);
+            mapa.setRobot(path.get(movimiento));
             mapa.repaint();
         }else {
             movimiento++;
@@ -86,7 +88,7 @@ public class MovimientoRobot extends JFrame{
 
     public void reboot(){
         movimiento = 0;
-        mapa.setRobot(path[movimiento]);
+        mapa.setRobot(path.get(movimiento));
         mapa.repaint();
     }
 

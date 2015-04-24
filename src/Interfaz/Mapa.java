@@ -27,14 +27,13 @@ public class Mapa extends JPanel {
     private Image imgPower;
     private Image imgProhibit;
     private Image imgRobo1;
-    private Image imgRobo2;
     private Image imgStart;
     private Image imgWall;
     private Image imgWater;
 
     //Matriz que contiene los valores del mapa
     private int positionsMap[][];
-
+    //Arreglo con la posicion actual del robot
     private int robot[];
 
     //Verifica si se a cargado el mapa
@@ -64,7 +63,6 @@ public class Mapa extends JPanel {
             imgPower = new ImageIcon(getClass().getResource("../Img/iconos/power.png")).getImage();
             imgProhibit = new ImageIcon(getClass().getResource("../Img/iconos/prohibit.png")).getImage();
             imgRobo1 = new ImageIcon(getClass().getResource("../Img/iconos/robo1.png")).getImage();
-            imgRobo2 = new ImageIcon(getClass().getResource("../Img/iconos/robo2.png")).getImage();
             imgStart = new ImageIcon(getClass().getResource("../Img/iconos/start.png")).getImage();
             imgWall = new ImageIcon(getClass().getResource("../Img/iconos/wall.png")).getImage();
             imgWater = new ImageIcon(getClass().getResource("../Img/iconos/water.png")).getImage();
@@ -76,7 +74,6 @@ public class Mapa extends JPanel {
             imgPower = Toolkit.getDefaultToolkit().getImage("");
             imgProhibit = Toolkit.getDefaultToolkit().getImage("");
             imgRobo1 = Toolkit.getDefaultToolkit().getImage("");
-            imgRobo2 = Toolkit.getDefaultToolkit().getImage("");
             imgStart = Toolkit.getDefaultToolkit().getImage("");
             imgWall = Toolkit.getDefaultToolkit().getImage("");
             imgWater = Toolkit.getDefaultToolkit().getImage("");

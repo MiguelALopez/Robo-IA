@@ -13,10 +13,12 @@ package Interfaz;
 
 import Busqueda.Aux;
 import Busqueda.BusquedaAmplitud;
+import Busqueda.BusquedaCostoUniforme;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 public class Eventos {
     private MenuPrincipal menuPrincipal;
@@ -51,17 +53,31 @@ public class Eventos {
                             movimientoRobot.setVisible(true);
                             menuPrincipal.setVisible(false);
                             if (menuPrincipal.radioButtonBusqInformada.isSelected()){
-                                int potitionInitial[] = new Aux(0).findPosStart(movimientoRobot.getMapa().getPositionsMap());
+                                /*int potitionInitial[] = new Aux(0).findPosStart(movimientoRobot.getMapa().getPositionsMap());
                                 BusquedaAmplitud busquedaAmplitud = new BusquedaAmplitud(
                                         movimientoRobot.getMapa().getPositionsMap(),
                                         potitionInitial[0],
                                         potitionInitial[1]
                                 );
                                 busquedaAmplitud.run();
-                                movimientoRobot.loadPath(busquedaAmplitud.path);
+                                movimientoRobot.loadPath(busquedaAmplitud.path);*/
                             }
-                            if (menuPrincipal.radioButtonBusqInformada.isSelected()){
-
+                            if (menuPrincipal.radioButtonBusqNoInformada.isSelected()){
+                                int potitionInitial[] = new Aux(0).findPosStart(movimientoRobot.getMapa().getPositionsMap());
+                                BusquedaCostoUniforme busquedaCostoUniforme = new BusquedaCostoUniforme(
+                                        movimientoRobot.getMapa().getPositionsMap(),
+                                        potitionInitial[0],
+                                        potitionInitial[1]
+                                );
+                                busquedaCostoUniforme.busqueda();
+                                movimientoRobot.loadPath(busquedaCostoUniforme.getNodoMeta().getPath());
+                                /*ArrayList<int[]> ints = busquedaCostoUniforme.getNodoMeta().getPath();
+                                for (int i = 0; i < ints.size(); i++) {
+                                    System.out.print("(" +ints.get(i)[0] + ", " +ints.get(i)[1] + ")");
+                                }
+                                System.out.println("\ncosto: " + busquedaCostoUniforme.getNodoMeta().getCost());
+                                System.out.println("nodos expandidos: " + busquedaCostoUniforme.getNodosExpandidos());
+                                System.out.println("nodos creados: " + busquedaCostoUniforme.getNodosCreados());*/
                             }
                         }else{
                             JOptionPane.showMessageDialog(null, "No se a cargado el mapa correctamente");

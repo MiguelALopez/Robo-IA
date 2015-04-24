@@ -76,7 +76,7 @@ public class Nodo {
 
 
 
-    boolean travel(int x, int y){
+    public boolean travel(int x, int y){
         for(int i=0;i<path.length;i++){
             if(path[i][0]==x && path[i][1]==y){return true;}
         }
