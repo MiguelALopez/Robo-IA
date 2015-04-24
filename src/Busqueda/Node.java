@@ -37,6 +37,22 @@ public class Node {
             path.add(new int[]{x,y});
         }
     }
+    
+    public Node(int x, int y, Node father, int cost, int charge, int heuristic){
+        this.x=x;
+        this.y=y;
+        this.cost=cost;
+        this.charge=charge;
+        this.heuristic=heuristic;
+        this.f_n=this.cost + this.heuristic;
+        path = new ArrayList<int[]>();
+        if (father != null){
+            path.addAll(father.getPath());
+            path.add(new int[]{x,y});
+        }else {
+            path.add(new int[]{x,y});
+        }
+    }
 
     public int getX(){
         return x;

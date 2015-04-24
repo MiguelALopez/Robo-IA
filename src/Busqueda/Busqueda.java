@@ -21,7 +21,9 @@ public class Busqueda {
 
     protected int iniX;
     protected int iniY;
-
+    protected int endX;
+    protected int endY;
+    
     protected PriorityQueue<Node> priorityQueue;
 
     public Busqueda() {

@@ -14,6 +14,7 @@ package Interfaz;
 import Busqueda.Aux;
 import Busqueda.BusquedaAmplitud;
 import Busqueda.BusquedaCostoUniforme;
+import Busqueda.BusquedaAsterisco;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -44,8 +45,7 @@ public class Eventos {
                     }
                 }
         );
-        menuPrincipal.buttonStart.addActionListener(
-                new ActionListener() {
+        menuPrincipal.buttonStart.addActionListener(new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
                         //Condicional para verificar si ya se cargo el mapa
@@ -53,14 +53,24 @@ public class Eventos {
                             movimientoRobot.setVisible(true);
                             menuPrincipal.setVisible(false);
                             if (menuPrincipal.radioButtonBusqInformada.isSelected()){
-                                /*int potitionInitial[] = new Aux(0).findPosStart(movimientoRobot.getMapa().getPositionsMap());
-                                BusquedaAmplitud busquedaAmplitud = new BusquedaAmplitud(
+                                int potitionInitial[] = new Aux(0).findPosStart(movimientoRobot.getMapa().getPositionsMap());
+                                int potitionEnd[] = new Aux(0).findPosEnd(movimientoRobot.getMapa().getPositionsMap());
+                                BusquedaAsterisco busquedaCostoUniforme = new BusquedaAsterisco(
                                         movimientoRobot.getMapa().getPositionsMap(),
                                         potitionInitial[0],
-                                        potitionInitial[1]
+                                        potitionInitial[1],
+                                        potitionEnd[0],
+                                        potitionEnd[1]                                        
                                 );
-                                busquedaAmplitud.run();
-                                movimientoRobot.loadPath(busquedaAmplitud.path);*/
+                                busquedaCostoUniforme.busqueda();
+                                //movimientoRobot.loadPath(busquedaCostoUniforme.getNodoMeta().getPath());
+                                ArrayList<int[]> ints = busquedaCostoUniforme.getNodoMeta().getPath();
+                                for (int i = 0; i < ints.size(); i++) {
+                                    System.out.print("(" +ints.get(i)[0] + ", " +ints.get(i)[1] + ")");
+                                }
+                                System.out.println("\ncosto: " + busquedaCostoUniforme.getNodoMeta().getCost());
+                                System.out.println("nodos expandidos: " + busquedaCostoUniforme.getNodosExpandidos());
+                                System.out.println("nodos creados: " + busquedaCostoUniforme.getNodosCreados());
                             }
                             if (menuPrincipal.radioButtonBusqNoInformada.isSelected()){
                                 int potitionInitial[] = new Aux(0).findPosStart(movimientoRobot.getMapa().getPositionsMap());
