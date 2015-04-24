@@ -31,6 +31,7 @@ public class Eventos {
                 new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
+                        //Creo un
                         JFileChooser jFileChooser = new JFileChooser();
                         jFileChooser.showOpenDialog(menuPrincipal);
                         String url = String.valueOf(jFileChooser.getSelectedFile());
@@ -58,6 +59,9 @@ public class Eventos {
                                 );
                                 busquedaAmplitud.run();
                                 movimientoRobot.loadPath(busquedaAmplitud.path);
+                            }
+                            if (menuPrincipal.radioButtonBusqInformada.isSelected()){
+
                             }
                         }else{
                             JOptionPane.showMessageDialog(null, "No se a cargado el mapa correctamente");

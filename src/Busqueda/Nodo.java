@@ -17,6 +17,8 @@ public class Nodo {
     private int[][] path;
     private int cost;
     private int charge;
+    private int heuristic;
+    private int f_n;
 
     Nodo(int x, int y, int[][] path, int cost, int charge){
         this.x=x;
@@ -24,6 +26,16 @@ public class Nodo {
         this.path=path;
         this.cost=cost;
         this.charge=charge;
+    }
+
+    Nodo(int x, int y, int[][] path, int cost, int charge, int heuristic){
+        this.x=x;
+        this.y=y;
+        this.path=path;
+        this.cost=cost;
+        this.charge=charge;
+        this.heuristic=heuristic;
+        this.f_n=this.cost + this.heuristic;
     }
 
     int getX(){
@@ -46,6 +58,24 @@ public class Nodo {
         return charge;
     }
 
+    public int getHeuristic() {
+        return heuristic;
+    }
+
+    public void setHeuristic(int heuristic) {
+        this.heuristic = heuristic;
+    }
+
+    public int getF_n() {
+        return f_n;
+    }
+
+    public void setF_n(int f_n) {
+        this.f_n = f_n;
+    }
+
+
+
     boolean travel(int x, int y){
         for(int i=0;i<path.length;i++){
             if(path[i][0]==x && path[i][1]==y){return true;}
@@ -63,5 +93,8 @@ public class Nodo {
         System.out.println("Camino: "+ pathString);
         System.out.println("Costo: " + cost);
         System.out.println("Carga: " + charge);
+        System.out.println("heuristica: " + heuristic);
+        System.out.println("f_n: " + f_n);
+        System.out.println("*****Nodos a expandir*****");
     }
 }

@@ -69,6 +69,7 @@ public class Mapa extends JPanel {
             imgWall = new ImageIcon(getClass().getResource("../Img/iconos/wall.png")).getImage();
             imgWater = new ImageIcon(getClass().getResource("../Img/iconos/water.png")).getImage();
         }catch (NullPointerException e){
+            //Si se llega a capturar un error por error al cargar las imagenes se inicializan las imagenes con nada
             System.err.println("Error al cargar las imagenes de los iconos");
             imgGoal = Toolkit.getDefaultToolkit().getImage("");
             imgPeople = Toolkit.getDefaultToolkit().getImage("");
@@ -138,13 +139,12 @@ public class Mapa extends JPanel {
 //            graphicsBuffer.fillRect(0,0,getWidth(),getHeight());
             drawGrids(graphicsBuffer);
             drawIcons(graphicsBuffer);
-//            drawRobot(graphicsBuffer);
-
 
             g.drawImage(imageBuffer,0,0,Color.cyan,null);
         }
     }
 
+    //Metodo encargado de inicializar las escalas con las que se esta trabajando los graficos
     public void escalas(double factGrid, double factSquare, double factImage, double factSpace){
         int n = positionsMap.length;
         int tamanoRelativo = getHeight();//Tamano relativo usado para verificar cual eje es menor y usarlo para escalar con respecto a ese

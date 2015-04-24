@@ -56,8 +56,11 @@ public class MovimientoRobot extends JFrame{
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
     }
 
+    //Metodo encargado de inicializar el camino por el cual el robot se ira
     public void loadPath(int path[][]){
         this.path = path;
+        mapa.setRobot(path[0]);
+        mapa.repaint();
         System.out.println("camino cargado");
     }
 

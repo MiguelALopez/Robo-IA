@@ -43,4 +43,29 @@ public class Queue extends ArrayList{
     public boolean vacia(){
         return this.isEmpty();
     }
+
+    public int posPrioridad(){
+        Nodo nodoAux = (Nodo) this.get(0);
+        int menor = nodoAux.getF_n();
+        int posMenor = 0;
+        int tamanio = this.size();
+        for(int i=1; i<tamanio; i++){
+            if(nodoAux.getF_n() > ((Nodo) this.get(i)).getF_n() ){
+                nodoAux = (Nodo) this.get(i);
+                menor = nodoAux.getF_n();
+                posMenor=i;
+
+            }
+        }
+        return posMenor;
+    }
+    public Nodo prioridad(int pos){
+        return (Nodo) this.get(pos);
+    }
+
+    public void removerP(int pos){
+        if(this.size() > 0){
+            this.remove(pos);
+        }
+    }
 }

@@ -36,18 +36,6 @@ public class Aux {
         else return y < tam;
     }
 
-    public void printMatrix(int[][] matrix){
-        System.out.println("--------------------------");
-        String line="";
-        for(int i=0;i<tam;i++){
-            for(int j=0;j<tam;j++){
-                line+=matrix[i][j]+" ";
-            }
-            System.out.println(line);
-            line="";
-        }
-        System.out.println("--------------------------");
-    }
     public int[] findPosStart(int matrix[][]){
         int posStart[] = new int[2];
         for(int j=0;j<matrix.length;j++){
@@ -60,5 +48,19 @@ public class Aux {
             }
         }
         return posStart;
+    }
+
+    public int[] findPosEnd(int matrix[][]){
+        int posEnd[] = new int[2];
+        for(int j=0;j<matrix.length;j++){
+            for(int k=0;k<matrix.length;k++){
+                if(matrix[j][k]==7){
+                    posEnd[0]=j;
+                    posEnd[1]=k;
+                    j=k=matrix.length;
+                }
+            }
+        }
+        return posEnd;
     }
 }
