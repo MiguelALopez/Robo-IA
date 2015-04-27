@@ -1,23 +1,21 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Busqueda;
 
-import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.PriorityQueue;
 
 public class BusquedaAsterisco extends Busqueda{
+    /*Para los valores de la typeHeuristic asumiremos que 1 es la primera typeHeuristic y para
+    cualquier otro valor la segunda typeHeuristic*/
+    private int typeHeuristic;
 
 
-    public BusquedaAsterisco(int[][] matrix, int iniX, int iniY, int endX, int endY){
+    public BusquedaAsterisco(int[][] matrix, int iniX, int iniY, int endX, int endY, int typeHeuristic){
         this.matrix = matrix;
         this.iniX = iniX;
         this.iniY = iniY;
         this.endX = endX;
         this.endY = endY;
+        this.typeHeuristic = typeHeuristic;
         PQsort pqs = new PQsort();
         priorityQueue = new PriorityQueue<Node>(pqs);
         priorityQueue.offer(new Node(iniX, iniY, null, 0, 6, calcManhattan(this.iniX, this.iniY))); //Se añade el primer nodo a la cola de prioridad
@@ -52,15 +50,22 @@ public class BusquedaAsterisco extends Busqueda{
                 y = node.getY();
             }break;
         }
-        if (node.getCharge() > 0 && validAccess(x,y) && !node.travel(x,y)){
+        if (checkCharge(node) && validAccess(x,y) && !node.travel(x,y)){
             int costo = calcCost(x, y, node.getCost());
             int charge = node.getCharge();
-            if (checkCharge(node)){
+            //En esta condicion se combrueba si se encuentra en una estacion de recarga
+            if (checkStationCharge(x,y)){
                 charge = 6;
             }else {
                 charge--;
             }
-            priorityQueue.offer(new Node(x, y, node,costo,charge,calcManhattan(x, y)));
+            int heuristica;
+            if (typeHeuristic == 1){
+                heuristica = calcManhattan(x,y);
+            }else {
+                heuristica = calcHeuristic(x,y,charge);
+            }
+            priorityQueue.offer(new Node(x, y, node,costo,charge,heuristica));
             nodosCreados++;
         }
     }
@@ -69,17 +74,17 @@ public class BusquedaAsterisco extends Busqueda{
         boolean fin = false; //Variable que comprueba si a terminado
         while (!fin && priorityQueue.size() > 0){
             Node node = priorityQueue.poll(); //Saca y remueve el nodo que se va a expandir
-           ArrayList<int[]> ints = node.getPath();
+           /*ArrayList<int[]> ints = node.getPath();
             for (int i = 0; i < ints.size(); i++) {
                 System.out.print("(" + ints.get(i)[0] + " - " + ints.get(i)[1] + ")");
             }
             System.out.print(" el costo es: " + node.getF_n());
-            System.out.println();
+            System.out.println();*/
 
             if (node != null && meta(node)){
                 nodoMeta = node;
                 fin = true;
-            }else {
+            }else if (checkCharge(node)){ //Se comprueba que el robot esta cargado para poder seguir expandiendo
                 expandir(node,1);
                 expandir(node,2);
                 expandir(node,3);
@@ -89,6 +94,7 @@ public class BusquedaAsterisco extends Busqueda{
         }   
     }
 
+    //Metodo encargado de retornar la distancia en L
     public int calcManhattan(int posx, int posy){
         int distanciaL = 0;
         int distanciaX = Math.abs(posx - endX);
@@ -96,11 +102,27 @@ public class BusquedaAsterisco extends Busqueda{
         distanciaL = distanciaX + distanciaY;
 
         return distanciaL;
-     }
+    }
+    //Heuristica distancia en L * (7 - charge)
+    public int calcHeuristic(int posx, int posy, int charge){
+        int heuristica;
+        heuristica = calcManhattan(posx,posy) * (7 - charge);
+        return heuristica;
+    }
 
 
     //Subclase encargada de ordenar la cola de prioridad de acuerdo al costo
-    static class PQsort implements Comparator<Node> {
+    class PQsort implements Comparator<Node> {
+        /*Este metodo es el encargado de darle la instruccion a la cola de prioridad que se ordene
+        * de cierta manera, ya sea que se ordene con respecto a el costo o a una typeHeuristic en especifico
+        *
+        * la manera en la que esta funciona es simple,
+        * Si el primer valor a comparar es menor que el segundo entonces retorna un numero negativo.
+        * Si ambos numeros tienen el mismo valor entonces retorna cero.
+        * Si el primer valor es mayor que el segundo entonces retornara un numero positivo
+        *
+        * Si quisiesemos ordenar de forma acendente lo normal seria que el primer valor restado con el segundo
+        * diese un numero negativo*/
         public int compare(Node one, Node two) {
             return one.getF_n() - two.getF_n();
         }

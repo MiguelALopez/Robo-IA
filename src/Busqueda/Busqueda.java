@@ -28,7 +28,7 @@ public class Busqueda {
 
     public Busqueda() {
         nodoMeta = null;
-        nodosCreados = 1;
+        nodosCreados = 0;
         nodosExpandidos = 0;
         nodoMeta = new Node(iniX, iniY, null, 0, 6);
     }
@@ -57,55 +57,22 @@ public class Busqueda {
         return isMeta;
     }
 
-    //Metodo encargado de comprovar si el nodo esta en una posicion de carga de ser asi retorna true
-    public boolean checkCharge(Node node){
+    /*Metodo encargado de comprobar si en esa posicion se encuentra
+    * una estacion de recarga de ser asi retorna true*/
+    public boolean checkStationCharge(int x, int y){
         boolean isStationCharge = false;
-        if (matrix[node.getX()][node.getY()] == 6){
+        if (matrix[x][y] == 6){ //
             isStationCharge = true;
         }
         return isStationCharge;
     }
 
-    public void expandir(Node node, int direccion){
-        int x = 0;
-        int y = 0;
-        switch (direccion){
-            //Arriba
-            case 1:{
-                x = node.getX() - 1;
-                y = node.getY();
-            }break;
-            //Derecha
-            case 2:{
-                x = node.getX();
-                y = node.getY() + 1;
-            }break;
-            //Abajo
-            case 3:{
-                x = node.getX() + 1;
-                y = node.getY();
-            }break;
-            //Izquierda
-            case 4:{
-                x = node.getX();
-                y = node.getY() - 1;
-            }break;
-            default:{
-                x = node.getX();
-                y = node.getY();
-            }break;
+    public boolean checkCharge(Node node){
+        boolean isCharge = false;
+        if (node.getCharge() > 0){
+            isCharge = true;
         }
-        if (node.getCharge() > 0 && validAccess(x,y) && !node.travel(x,y)){
-            int costo = calcCost(x, y, node.getCost());
-            int charge = node.getCharge();
-            if (checkCharge(node)){
-                charge = 6;
-            }else {
-                charge--;
-            }
-            priorityQueue.offer(new Node(x, y, node,costo,charge));
-            nodosCreados++;
-        }
+        return isCharge;
     }
 
     //Metodo ecargado de calcular los costos en una posicion dada

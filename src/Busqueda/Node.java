@@ -11,14 +11,12 @@
  */
 package Busqueda;
 
-import java.awt.*;
 import java.util.ArrayList;
 
 public class Node {
     private int x;
     private int y;
     private int cost;
-//    private Node father;
     private ArrayList<int[]> path;
     private int charge;
     private int heuristic;

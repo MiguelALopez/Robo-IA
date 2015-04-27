@@ -11,7 +11,6 @@
  */
 package Busqueda;
 
-import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.PriorityQueue;
 
@@ -41,7 +40,7 @@ public class BusquedaCostoUniforme extends Busqueda{
             if (node != null && meta(node)){
                 nodoMeta = node;
                 fin = true;
-            }else {
+            }else if (checkCharge(node)){ // //Se comprueba que el robot esta cargado para poder seguir expandiendo
                 expandir(node,1);
                 expandir(node,2);
                 expandir(node,3);
@@ -51,7 +50,51 @@ public class BusquedaCostoUniforme extends Busqueda{
         }
     }
 
+    public void expandir(Node node, int direccion){
+        int x = 0;
+        int y = 0;
+        switch (direccion){
+            //Arriba
+            case 1:{
+                x = node.getX() - 1;
+                y = node.getY();
+            }break;
+            //Derecha
+            case 2:{
+                x = node.getX();
+                y = node.getY() + 1;
+            }break;
+            //Abajo
+            case 3:{
+                x = node.getX() + 1;
+                y = node.getY();
+            }break;
+            //Izquierda
+            case 4:{
+                x = node.getX();
+                y = node.getY() - 1;
+            }break;
+            default:{
+                x = node.getX();
+                y = node.getY();
+            }break;
+        }
+        /*Esta condicion comprueba que el nodo este cargado, que al lugar que se
+        dirige es un acceso valido y que no lo halla recorrido antes*/
+        if (checkCharge(node) && validAccess(x,y) && !node.travel(x,y)){
+            int costo = calcCost(x, y, node.getCost());
+            int charge = node.getCharge();
+            //En esta condicion se combrueba si se encuentra en una estacion de recarga
+            if (checkStationCharge(x, y)){
+                charge = 6;
+            }else {
+                charge--;
+            }
 
+            priorityQueue.offer(new Node(x, y, node,costo,charge));
+            nodosCreados++;
+        }
+    }
 
     //Subclase encargada de ordenar la cola de prioridad de acuerdo al costo
     static class PQsort implements Comparator<Node> {

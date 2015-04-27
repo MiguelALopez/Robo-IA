@@ -12,29 +12,8 @@
 package Busqueda;
 
 public class Aux {
-    private int tam = 0;
 
-    public Aux(int tam){
-        this.tam = tam;
-    }
-
-    public int[][] toAdd(int[][] array, int x, int y){
-        int[][] newArray = new int[array.length+1][2];
-        for(int i=0;i<array.length;i++){
-            newArray[i][0]=array[i][0];
-            newArray[i][1]=array[i][1];
-        }
-        newArray[array.length][0]=x;
-        newArray[array.length][1]=y;
-        return newArray;
-    }
-
-    public boolean inRange(int x, int y){
-        if(x<0){return false;}
-        else if(y<0){return false;}
-        else if(x>=tam){return false;}
-        else return y < tam;
-    }
+    public Aux(){}
 
     public int[] findPosStart(int matrix[][]){
         int posStart[] = new int[2];
