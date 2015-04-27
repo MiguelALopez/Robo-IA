@@ -20,7 +20,8 @@ public class MenuPrincipal extends JFrame {
     JButton buttonLoadFiles;
     JButton buttonStart;
     JTextField textFieldLoadFiles;
-    JRadioButton radioButtonBusqInformada;
+    JRadioButton radioButtonBusqInformada1;
+    JRadioButton radioButtonBusqInformada2;
     JRadioButton radioButtonBusqNoInformada;
     ButtonGroup buttonGroupBusquedas;
 
@@ -33,11 +34,14 @@ public class MenuPrincipal extends JFrame {
         textFieldLoadFiles = new JFormattedTextField("/");
         textFieldLoadFiles.setEditable(false);
         buttonGroupBusquedas = new ButtonGroup();
-        radioButtonBusqInformada = new JRadioButton("Busqueda Informada", true);
-        radioButtonBusqInformada.setOpaque(false);
+        radioButtonBusqInformada1 = new JRadioButton("Busqueda Asterisco (Distancia en L)", true);
+        radioButtonBusqInformada1.setOpaque(false);
+        radioButtonBusqInformada2 = new JRadioButton("Busqueda Asterisco (Distancia en L*(7 - Carga)", true);
+        radioButtonBusqInformada2.setOpaque(false);
         radioButtonBusqNoInformada = new JRadioButton("Busqueda No Informada");
         radioButtonBusqNoInformada.setOpaque(false);
-        buttonGroupBusquedas.add(radioButtonBusqInformada);
+        buttonGroupBusquedas.add(radioButtonBusqInformada1);
+        buttonGroupBusquedas.add(radioButtonBusqInformada2);
         buttonGroupBusquedas.add(radioButtonBusqNoInformada);
 
         //Se crea el JPanel con el fondo de inicio
@@ -76,9 +80,10 @@ public class MenuPrincipal extends JFrame {
         panelOpciones.setOpaque(false);
 
         //Panel contenedor de radioButton
-        JPanel panelRadioButton = new JPanel(new GridLayout(2, 1, 0, 0));
+        JPanel panelRadioButton = new JPanel(new GridLayout(3, 1, 0, 0));
         panelRadioButton.setOpaque(false);
-        panelRadioButton.add(radioButtonBusqInformada);
+        panelRadioButton.add(radioButtonBusqInformada1);
+        panelRadioButton.add(radioButtonBusqInformada2);
         panelRadioButton.add(radioButtonBusqNoInformada);
 
         //Panel contenedor de buttonStart
