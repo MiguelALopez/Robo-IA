@@ -81,7 +81,7 @@ public class BusquedaCostoUniforme extends Busqueda{
         }
         /*Esta condicion comprueba que el nodo este cargado, que al lugar que se
         dirige es un acceso valido y que no lo halla recorrido antes*/
-        if (checkCharge(node) && validAccess(x,y) && !node.travel(x,y)){
+        if (checkCharge(node) && validAccess(x,y)){
             int costo = calcCost(x, y, node.getCost());
             int charge = node.getCharge();
             //En esta condicion se combrueba si se encuentra en una estacion de recarga

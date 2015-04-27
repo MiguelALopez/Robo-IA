@@ -50,7 +50,7 @@ public class BusquedaAsterisco extends Busqueda{
                 y = node.getY();
             }break;
         }
-        if (checkCharge(node) && validAccess(x,y) && !node.travel(x,y)){
+        if (checkCharge(node) && validAccess(x,y)){
             int costo = calcCost(x, y, node.getCost());
             int charge = node.getCharge();
             //En esta condicion se combrueba si se encuentra en una estacion de recarga

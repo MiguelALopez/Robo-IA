@@ -92,13 +92,4 @@ public class Node {
         return path;
     }
 
-    //Metodo encargado de retornar true si la posicion se encuentra en el camino recorrido por el nodo
-    public boolean travel(int x, int y){
-        for (int[] aPath : path) {
-            if (aPath[0] == x && aPath[1] == y) {
-                return true;
-            }
-        }
-        return false;
-    }
 }
