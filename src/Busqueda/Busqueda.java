@@ -75,6 +75,16 @@ public class Busqueda {
         return isCharge;
     }
 
+    /*Metodo encargado de calcular el factor de ramificacion segun la profundidad y los nodos expandidos
+    * Esta se calcula segun la formula que el profesor uso en el parcial:
+    * profundidad = p
+    * sumatoria desde i = 0 hasta p de b^i es igual a (b^(profundidad+1) - 1)/( 1)*/
+    public double calcFactProf(int profudidad, int nodos){
+        double factRam = 0;
+        factRam = Math.pow((nodos + 1),1/(profudidad + 1));
+        return factRam;
+    }
+
     //Metodo ecargado de calcular los costos en una posicion dada
     public int calcCost(int posX, int posY, int costo){
         switch (matrix[posX][posY]){
