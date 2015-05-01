@@ -30,6 +30,7 @@ public class BusquedaCostoUniforme extends Busqueda{
         boolean fin = false; //Variable que comprueba si a terminado
         while (!fin && priorityQueue.size() > 0){
             Node node = priorityQueue.poll(); //Saca y remueve el nodo que se va a expandir
+            updateProfundidad(node.getPath().size() - 1); //Se le resta un 1 de el nodo raiz
            /* ArrayList<int[]> ints = node.getPath();
             for (int i = 0; i < ints.size(); i++) {
                 System.out.print("(" + ints.get(i)[0] + " - " + ints.get(i)[1] + ")");
@@ -48,6 +49,7 @@ public class BusquedaCostoUniforme extends Busqueda{
                 nodosExpandidos++;
             }
         }
+        factRamificacion = calcFactRam(profundidad, nodosCreados);
     }
 
     public void expandir(Node node, int direccion){

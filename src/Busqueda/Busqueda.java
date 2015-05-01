@@ -11,12 +11,16 @@
  */
 package Busqueda;
 
+import Interfaz.Mapa;
+
 import java.util.PriorityQueue;
 
 public class Busqueda {
     protected int matrix[][];
     protected int nodosExpandidos;
     protected int nodosCreados;
+    protected int profundidad;
+    protected double factRamificacion;
     protected Node nodoMeta;
 
     protected int iniX;
@@ -30,6 +34,8 @@ public class Busqueda {
         nodoMeta = null;
         nodosCreados = 0;
         nodosExpandidos = 0;
+        profundidad = 0;
+        factRamificacion = 0;
         nodoMeta = new Node(iniX, iniY, null, 0, 6);
     }
 
@@ -79,10 +85,18 @@ public class Busqueda {
     * Esta se calcula segun la formula que el profesor uso en el parcial:
     * profundidad = p
     * sumatoria desde i = 0 hasta p de b^i es igual a (b^(profundidad+1) - 1)/( 1)*/
-    public double calcFactProf(int profudidad, int nodos){
-        double factRam = 0;
-        factRam = Math.pow((nodos + 1),1/(profudidad + 1));
+    public double calcFactRam(int profudidad, int nodos){
+        double factRam;
+        factRam = Math.pow((nodos + 1.0), 1.0 / (profudidad + 1.0));
+        factRam = Math.round(factRam*10000.0)/10000.0; //Redondea el numero a 4 cifras significativas
         return factRam;
+    }
+
+    //Metodo de encargado de Actualizar la profundidad para calcular la mayor profundidad
+    public void updateProfundidad(int profundidad){
+        if (profundidad > this.profundidad){
+            this.profundidad = profundidad;
+        }
     }
 
     //Metodo ecargado de calcular los costos en una posicion dada
@@ -124,4 +138,11 @@ public class Busqueda {
         return nodosCreados;
     }
 
+    public double getFactRamificacion() {
+        return factRamificacion;
+    }
+
+    public int getProfundidad() {
+        return profundidad;
+    }
 }
