@@ -20,8 +20,8 @@ import java.util.ArrayList;
 public class MovimientoRobot extends JFrame{
 
     private Mapa mapa;
-    ArrayList<int[]> path;
-    int movimiento;
+    private ArrayList<int[]> path;
+    private int movimiento;
 
     //Botones de interaccion del mapa
     JButton buttonNext;
@@ -34,6 +34,7 @@ public class MovimientoRobot extends JFrame{
     JLabel labelNodosCreados;
     JLabel labelCostoTotal;
     JLabel labelFactorRamificacion;
+    JLabel labelProfundidad;
 
     public MovimientoRobot(){
         super("Ubicame UV");
@@ -58,14 +59,10 @@ public class MovimientoRobot extends JFrame{
         labelNodosCreados = new JLabel();
         labelCostoTotal = new JLabel();
         labelFactorRamificacion = new JLabel();
+        labelProfundidad = new JLabel();
         movimiento = 0;
 
-        //Panel con las correspondientes opciones y detalles de la expancion de los nodos
-//        JPanel panelOpciones = new JPanel();
-//        panelOpciones.setSize(300, 550);
-//        panelOpciones.setMaximumSize(new Dimension(300, 550));
-
-        JPanel panelDetalles = new JPanel(new GridLayout(4,1,5,5));
+        JPanel panelDetalles = new JPanel(new GridLayout(5,1,5,5));
         GridBagConstraints constraintsDetalles = new GridBagConstraints();
         constraintsDetalles.gridx = 1;
         constraintsDetalles.gridy = 0;
@@ -78,6 +75,7 @@ public class MovimientoRobot extends JFrame{
         panelDetalles.add(labelNodosCreados);
         panelDetalles.add(labelCostoTotal);
         panelDetalles.add(labelFactorRamificacion);
+        panelDetalles.add(labelProfundidad);
 
         //Vista del mapa en el cual se hace el paso a paso
         JPanel panelPasoApaso = new JPanel(new GridLayout(4, 1, 5, 5));
@@ -93,21 +91,9 @@ public class MovimientoRobot extends JFrame{
         panelPasoApaso.add(buttonReboot);
         panelPasoApaso.add(buttonReturn);
 
-//        panelOpciones.add(panelDetalles);
-//        panelOpciones.add(panelPasoApaso);
-
         add(mapa,constraintsMapa);
-//        add(new JTextField("Hola"), constraintsMapa);
         add(panelDetalles, constraintsDetalles);
         add(panelPasoApaso, constraintsPasoApaso);
-//        add(panelOpciones);
-
-//        add(new JPanel(), BorderLayout.WEST);
-//        add(new JPanel(), BorderLayout.EAST);
-//        add(mapa, BorderLayout.CENTER);
-//        add(panelPasoApaso, BorderLayout.SOUTH);
-
-
 
         setVisible(false);
         setSize(700, 550);
@@ -182,5 +168,13 @@ public class MovimientoRobot extends JFrame{
 
     public void setLabelFactorRamificacion(JLabel labelFactorRamificacion) {
         this.labelFactorRamificacion = labelFactorRamificacion;
+    }
+
+    public JLabel getLabelProfundidad() {
+        return labelProfundidad;
+    }
+
+    public void setLabelProfundidad(JLabel labelProfundidad) {
+        this.labelProfundidad = labelProfundidad;
     }
 }

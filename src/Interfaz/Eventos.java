@@ -12,6 +12,7 @@
 package Interfaz;
 
 import Busqueda.Aux;
+import Busqueda.Busqueda;
 import Busqueda.BusquedaCostoUniforme;
 import Busqueda.BusquedaAsterisco;
 
@@ -47,30 +48,33 @@ public class Eventos {
                     @Override
                     public void actionPerformed(ActionEvent e) {
                         //Condicional para verificar si ya se cargo el mapa
+                        Busqueda busqueda = new Busqueda();
+                        System.out.println("Factor: " + busqueda.calcFactRam(8, 38));
                         if (movimientoRobot.getMapa().isLoadMap()){
                             movimientoRobot.setVisible(true);
                             menuPrincipal.setVisible(false);
                             if (menuPrincipal.radioButtonBusqInformada1.isSelected()){
                                 int potitionInitial[] = new Aux().findPosStart(movimientoRobot.getMapa().getPositionsMap());
                                 int potitionEnd[] = new Aux().findPosEnd(movimientoRobot.getMapa().getPositionsMap());
-                                BusquedaAsterisco busquedaCostoUniforme = new BusquedaAsterisco(
+                                BusquedaAsterisco busquedaAsterisco = new BusquedaAsterisco(
                                         movimientoRobot.getMapa().getPositionsMap(),
                                         potitionInitial[0],
                                         potitionInitial[1],
                                         potitionEnd[0],
-                                        potitionEnd[1]       ,
+                                        potitionEnd[1],
                                         1
                                 );
-                                busquedaCostoUniforme.busqueda();
-                                movimientoRobot.loadPath(busquedaCostoUniforme.getNodoMeta().getPath());
+                                busquedaAsterisco.busqueda();
+                                movimientoRobot.loadPath(busquedaAsterisco.getNodoMeta().getPath());
                                 /*ArrayList<int[]> ints = busquedaCostoUniforme.getNodoMeta().getPath();
                                 for (int i = 0; i < ints.size(); i++) {
                                     System.out.print("(" +ints.get(i)[0] + ", " +ints.get(i)[1] + ")");
                                 }*/
-                                movimientoRobot.getLabelNodosExpandidos().setText("Numero de Nodos Expandidos: " + busquedaCostoUniforme.getNodosExpandidos());
-                                movimientoRobot.getLabelNodosCreados().setText("Numero de Nodos Creados: " + busquedaCostoUniforme.getNodosCreados());
-                                movimientoRobot.getLabelCostoTotal().setText("Costo Total de la Solucion: " + busquedaCostoUniforme.getNodoMeta().getCost());
-                                movimientoRobot.getLabelFactorRamificacion().setText("Factor de Ramificacion: " + 0);
+                                movimientoRobot.getLabelNodosExpandidos().setText("Numero de Nodos Expandidos: " + busquedaAsterisco.getNodosExpandidos());
+                                movimientoRobot.getLabelNodosCreados().setText("Numero de Nodos Creados: " + busquedaAsterisco.getNodosCreados());
+                                movimientoRobot.getLabelCostoTotal().setText("Costo Total de la Solucion: " + busquedaAsterisco.getNodoMeta().getCost());
+                                movimientoRobot.getLabelFactorRamificacion().setText("Factor de Ramificacion: " + busquedaAsterisco.getFactRamificacion());
+                                movimientoRobot.getLabelProfundidad().setText("Profundidad del Arbol: " + busquedaAsterisco.getProfundidad());
                                 /*System.out.println("\ncosto: " + busquedaCostoUniforme.getNodoMeta().getCost());
                                 System.out.println("nodos expandidos: " + busquedaCostoUniforme.getNodosExpandidos());
                                 System.out.println("nodos creados: " + busquedaCostoUniforme.getNodosCreados());*/
@@ -78,24 +82,26 @@ public class Eventos {
                             if (menuPrincipal.radioButtonBusqInformada2.isSelected()){
                                 int potitionInitial[] = new Aux().findPosStart(movimientoRobot.getMapa().getPositionsMap());
                                 int potitionEnd[] = new Aux().findPosEnd(movimientoRobot.getMapa().getPositionsMap());
-                                BusquedaAsterisco busquedaCostoUniforme = new BusquedaAsterisco(
+                                BusquedaAsterisco busquedaAsterisco = new BusquedaAsterisco(
                                         movimientoRobot.getMapa().getPositionsMap(),
                                         potitionInitial[0],
                                         potitionInitial[1],
                                         potitionEnd[0],
-                                        potitionEnd[1]       ,
+                                        potitionEnd[1],
                                         2
                                 );
-                                busquedaCostoUniforme.busqueda();
-                                movimientoRobot.loadPath(busquedaCostoUniforme.getNodoMeta().getPath());
-                                ArrayList<int[]> ints = busquedaCostoUniforme.getNodoMeta().getPath();
+                                busquedaAsterisco.busqueda();
+                                movimientoRobot.loadPath(busquedaAsterisco.getNodoMeta().getPath());
+                                ArrayList<int[]> ints = busquedaAsterisco.getNodoMeta().getPath();
                                 for (int[] anInt : ints) {
                                     System.out.print("(" + anInt[0] + ", " + anInt[1] + ")");
                                 }
-                                movimientoRobot.getLabelNodosExpandidos().setText("Numero de Nodos Expandidos: " + busquedaCostoUniforme.getNodosExpandidos());
-                                movimientoRobot.getLabelNodosCreados().setText("Numero de Nodos Creados: " + busquedaCostoUniforme.getNodosCreados());
-                                movimientoRobot.getLabelCostoTotal().setText("Costo Total de la Solucion: " + busquedaCostoUniforme.getNodoMeta().getCost());
-                                movimientoRobot.getLabelFactorRamificacion().setText("Factor de Ramificacion: " + 0);
+                                movimientoRobot.getLabelNodosExpandidos().setText("Numero de Nodos Expandidos: " + busquedaAsterisco.getNodosExpandidos());
+                                movimientoRobot.getLabelNodosCreados().setText("Numero de Nodos Creados: " + busquedaAsterisco.getNodosCreados());
+                                movimientoRobot.getLabelCostoTotal().setText("Costo Total de la Solucion: " + busquedaAsterisco.getNodoMeta().getCost());
+                                movimientoRobot.getLabelFactorRamificacion().setText("Factor de Ramificacion: " + busquedaAsterisco.getFactRamificacion());
+                                movimientoRobot.getLabelProfundidad().setText("Profundidad del Arbol: " + busquedaAsterisco.getProfundidad());
+
                                 /*System.out.println("\ncosto: " + busquedaCostoUniforme.getNodoMeta().getCost());
                                 System.out.println("nodos expandidos: " + busquedaCostoUniforme.getNodosExpandidos());
                                 System.out.println("nodos creados: " + busquedaCostoUniforme.getNodosCreados());*/
@@ -110,14 +116,16 @@ public class Eventos {
                                 busquedaCostoUniforme.busqueda();
                                 movimientoRobot.loadPath(busquedaCostoUniforme.getNodoMeta().getPath());
 //                                System.out.println("El robot finalizo con: " + busquedaCostoUniforme.getNodoMeta().getCharge());
-                                ArrayList<int[]> ints = busquedaCostoUniforme.getNodoMeta().getPath();
+                                /*ArrayList<int[]> ints = busquedaCostoUniforme.getNodoMeta().getPath();
                                 for (int[] anInt : ints) {
                                     System.out.print("(" + anInt[0] + ", " + anInt[1] + ")");
-                                }
+                                }*/
                                 movimientoRobot.getLabelNodosExpandidos().setText("Numero de Nodos Expandidos: " + busquedaCostoUniforme.getNodosExpandidos());
                                 movimientoRobot.getLabelNodosCreados().setText("Numero de Nodos Creados: " + busquedaCostoUniforme.getNodosCreados());
                                 movimientoRobot.getLabelCostoTotal().setText("Costo Total de la Solucion: " + busquedaCostoUniforme.getNodoMeta().getCost());
-                                movimientoRobot.getLabelFactorRamificacion().setText("Factor de Ramificacion: " + 0);
+                                movimientoRobot.getLabelFactorRamificacion().setText("Factor de Ramificacion: " + busquedaCostoUniforme.getFactRamificacion());
+                                movimientoRobot.getLabelProfundidad().setText("Profundidad del Arbol: " + busquedaCostoUniforme.getProfundidad());
+
                                 /*System.out.println("\ncosto: " + busquedaCostoUniforme.getNodoMeta().getCost());
                                 System.out.println("nodos expandidos: " + busquedaCostoUniforme.getNodosExpandidos());
                                 System.out.println("nodos creados: " + busquedaCostoUniforme.getNodosCreados());*/
