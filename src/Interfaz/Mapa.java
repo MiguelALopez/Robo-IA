@@ -1,12 +1,12 @@
 /**
  * ********************************************
- * Autor: Miguel Angel Lopez Fernandez
- * Correo: miguel.angel.lopez@correounivalle.edu.co
- * Código: 1326691
+ * Autor: Miguel Angel Lopez Fernandez - 1326691
+ * Autor: Kellys Santa Gutierrez - 1325228
+ * Autor: Mario Alejandro Payan - 1224601
  * Fecha: 02-abr-2015
  * Nombre del Archivo: Mapa.java
  * Plan: Ingeniería de Sistemas - 3743
- * Institución Educativa: Universidad del Valle
+ * Institución Educativa: Universidad del Valle (Cali - Colombia)
  * *********************************************
  */
 package Interfaz;
@@ -50,7 +50,7 @@ public class Mapa extends JPanel {
     double sizeSpace;
 
     public Mapa(){
-        loadImages();
+        loadImages(); //Se cargan las
         loadMap = false;
         robot = new int[2];
     }
@@ -127,13 +127,10 @@ public class Mapa extends JPanel {
     //Metodo sobre escrito encargado de refrescar la pantalla con los graficos
     @Override
     public void paint(Graphics g){
-//        System.out.println("x= " + getWidth() + " y= " + getHeight());
         if (loadMap){
             Image imageBuffer = createImage(getWidth(), getHeight());
             Graphics graphicsBuffer = imageBuffer.getGraphics();
             escalas(0.037,0.9259,0.7407, 0.0925);
-//            graphicsBuffer.setColor(Color.CYAN);
-//            graphicsBuffer.fillRect(0,0,getWidth(),getHeight());
             drawGrids(graphicsBuffer);
             drawIcons(graphicsBuffer);
 

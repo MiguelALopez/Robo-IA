@@ -1,12 +1,12 @@
 /**
  * ********************************************
- * Autor: Miguel Angel Lopez Fernandez
- * Correo: miguel.angel.lopez@correounivalle.edu.co
- * Código: 1326691
+ * Autor: Miguel Angel Lopez Fernandez - 1326691
+ * Autor: Kellys Santa Gutierrez - 1325228
+ * Autor: Mario Alejandro Payan - 1224601
  * Fecha: 02-abr-2015
  * Nombre del Archivo: Ubicame_UV.java
  * Plan: Ingeniería de Sistemas - 3743
- * Institución Educativa: Universidad del Valle
+ * Institución Educativa: Universidad del Valle (Cali - Colombia)
  * *********************************************
  */
 

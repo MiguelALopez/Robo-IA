@@ -1,17 +1,15 @@
 /**
  * ********************************************
- * Autor: Miguel Angel Lopez Fernandez
- * Correo: miguel.angel.lopez@correounivalle.edu.co
- * Código: 1326691
+ * Autor: Miguel Angel Lopez Fernandez - 1326691
+ * Autor: Kellys Santa Gutierrez - 1325228
+ * Autor: Mario Alejandro Payan - 1224601
  * Fecha: 11-abr-2015
  * Nombre del Archivo: Busqueda.java
  * Plan: Ingeniería de Sistemas - 3743
- * Institución Educativa: Universidad del Valle
+ * Institución Educativa: Universidad del Valle (Cali - Colombia)
  * *********************************************
  */
 package Busqueda;
-
-import Interfaz.Mapa;
 
 import java.util.PriorityQueue;
 
@@ -31,6 +29,7 @@ public class Busqueda {
     protected PriorityQueue<Node> priorityQueue;
 
     public Busqueda() {
+        //Se inicializan las variables
         nodoMeta = null;
         nodosCreados = 0;
         nodosExpandidos = 0;
@@ -73,6 +72,7 @@ public class Busqueda {
         return isStationCharge;
     }
 
+    //Metodo encargado de verificar si el robot en el nodo tiene carga
     public boolean checkCharge(Node node){
         boolean isCharge = false;
         if (node.getCharge() > 0){
@@ -126,6 +126,7 @@ public class Busqueda {
         return costo;
     }
 
+    //Getters y Setters
     public Node getNodoMeta() {
         return nodoMeta;
     }

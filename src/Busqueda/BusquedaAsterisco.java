@@ -1,3 +1,14 @@
+/**
+ * ********************************************
+ * Autor: Miguel Angel Lopez Fernandez - 1326691
+ * Autor: Kellys Santa Gutierrez - 1325228
+ * Autor: Mario Alejandro Payan - 1224601
+ * Fecha: 25-abr-2015
+ * Nombre del Archivo: BusquedaAsterisco.java
+ * Plan: Ingeniería de Sistemas - 3743
+ * Institución Educativa: Universidad del Valle (Cali - Colombia)
+ * *********************************************
+ */
 package Busqueda;
 
 import java.util.Comparator;
@@ -8,19 +19,22 @@ public class BusquedaAsterisco extends Busqueda{
     cualquier otro valor la segunda typeHeuristic*/
     private int typeHeuristic;
 
-
     public BusquedaAsterisco(int[][] matrix, int iniX, int iniY, int endX, int endY, int typeHeuristic){
+        //Se inicializan las variables
         this.matrix = matrix;
         this.iniX = iniX;
         this.iniY = iniY;
         this.endX = endX;
         this.endY = endY;
         this.typeHeuristic = typeHeuristic;
+        //Se inicializa la cola de prioridad con el formato de ordenamiento
         PQsort pqs = new PQsort();
         priorityQueue = new PriorityQueue<Node>(pqs);
+        //Se añade el primer nodo a la cola de prioridad que en este casi seria el inicio
         priorityQueue.offer(new Node(iniX, iniY, null, 0, 6, calcManhattan(this.iniX, this.iniY))); //Se añade el primer nodo a la cola de prioridad
     }
-    
+
+    //Metodo encargado de expandir un nodo en una direccion determinada
     public void expandir(Node node, int direccion){
         int x = 0;
         int y = 0;
@@ -65,22 +79,21 @@ public class BusquedaAsterisco extends Busqueda{
             }else {
                 heuristica = calcHeuristic(x,y,charge);
             }
+            //Se añade el nuevo nodo a la cola de prioridad
             priorityQueue.offer(new Node(x, y, node,costo,charge,heuristica));
             nodosCreados++;
         }
     }
 
+    /*Metodo encargado de realizar la busqueda, esta comienza y no para hasta que
+    * encuentre la meta o la cola de prioridad quede vacia, que en este caso,
+    * no se encontraria la meta*/
     public void busqueda(){
         boolean fin = false; //Variable que comprueba si a terminado
         while (!fin && priorityQueue.size() > 0){
             Node node = priorityQueue.poll(); //Saca y remueve el nodo que se va a expandir
+            //Se usa para hallar cual es la maxima profundidad
             updateProfundidad(node.getPath().size() - 1); //Se le resta un 1 de el nodo raiz
-           /*ArrayList<int[]> ints = node.getPath();
-            for (int i = 0; i < ints.size(); i++) {
-                System.out.print("(" + ints.get(i)[0] + " - " + ints.get(i)[1] + ")");
-            }
-            System.out.print(" el costo es: " + node.getF_n());
-            System.out.println();*/
 
             if (node != null && meta(node)){
                 nodoMeta = node;
@@ -93,6 +106,7 @@ public class BusquedaAsterisco extends Busqueda{
                 nodosExpandidos++;
             }
         }
+        //Se caulcula cual es el factor de ramificacion una vez a encontrado la meta
         factRamificacion = calcFactRam(profundidad, nodosCreados);
     }
 

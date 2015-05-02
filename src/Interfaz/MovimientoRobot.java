@@ -1,17 +1,15 @@
 /**
  * ********************************************
- * Autor: Miguel Angel Lopez Fernandez
- * Correo: miguel.angel.lopez@correounivalle.edu.co
- * Código: 1326691
+ * Autor: Miguel Angel Lopez Fernandez - 1326691
+ * Autor: Kellys Santa Gutierrez - 1325228
+ * Autor: Mario Alejandro Payan - 1224601
  * Fecha: 02-abr-2015
  * Nombre del Archivo: MovimientoRobot.java
  * Plan: Ingeniería de Sistemas - 3743
- * Institución Educativa: Universidad del Valle
+ * Institución Educativa: Universidad del Valle (Cali - Colombia)
  * *********************************************
  */
 package Interfaz;
-
-import com.sun.xml.internal.ws.client.sei.ResponseBuilder;
 
 import javax.swing.*;
 import java.awt.*;
@@ -134,6 +132,7 @@ public class MovimientoRobot extends JFrame{
         mapa.repaint();
     }
 
+    //Getters y Setters
     public Mapa getMapa() {
         return mapa;
     }
@@ -176,5 +175,13 @@ public class MovimientoRobot extends JFrame{
 
     public void setLabelProfundidad(JLabel labelProfundidad) {
         this.labelProfundidad = labelProfundidad;
+    }
+
+    public int getMovimiento() {
+        return movimiento;
+    }
+
+    public void setMovimiento(int movimiento) {
+        this.movimiento = movimiento;
     }
 }
