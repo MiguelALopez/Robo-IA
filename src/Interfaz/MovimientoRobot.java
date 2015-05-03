@@ -94,7 +94,7 @@ public class MovimientoRobot extends JFrame{
         add(panelPasoApaso, constraintsPasoApaso);
 
         setVisible(false);
-        setSize(700, 550);
+        setSize(780, 550);
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
     }
 
