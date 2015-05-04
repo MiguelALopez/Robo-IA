@@ -45,7 +45,7 @@ public class MenuPrincipal extends JFrame {
         buttonGroupBusquedas.add(radioButtonBusqNoInformada);
 
         //Se crea el JPanel con el fondo de inicio
-        FondoInicio fondoInicio = new FondoInicio("../Img/robo-fondo.jpg");
+        FondoInicio fondoInicio = new FondoInicio("/Img/robo-fondo.jpg");
         fondoInicio.setLayout(new GridLayout(3, 1));
 
         //Panel contenedor del titulo
