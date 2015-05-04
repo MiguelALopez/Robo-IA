@@ -10,6 +10,6 @@ Primer Proyecto de inteligencia artificial
 
 ### Comando de Compilacion
 Dentro de la carpeta src ejecuta los siguientes comando en consola
- > **javac Ubicame_UV**
+ > **javac Ubicame_UV.java**
  
  > **java Ubicame_UV**
